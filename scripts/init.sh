@@ -236,6 +236,10 @@ setup_repositories() {
         if [ ! -f "${LEGACY_FILE}.backup" ]; then
             cp "$LEGACY_FILE" "${LEGACY_FILE}.backup"
         fi
+
+        # Replace specific regional archive hosts (cn/us) as well as generic archive/ports
+        sed -i 's|http://cn.archive.ubuntu.com|https://mirrors.aliyun.com|g' "$LEGACY_FILE" || true
+        sed -i 's|http://us.archive.ubuntu.com|https://mirrors.aliyun.com|g' "$LEGACY_FILE" || true
         sed -i 's|http://\(archive\|ports\)\.ubuntu\.com|https://mirrors.aliyun.com|g' "$LEGACY_FILE" || true
         sed -i 's|http://security\.ubuntu\.com|https://mirrors.aliyun.com|g' "$LEGACY_FILE" || true
     fi
